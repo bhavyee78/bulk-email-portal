@@ -29,8 +29,11 @@ const AppState = {
 // API UTILITIES
 // ===========================================
 
+// Get API_BASE from config
+const API_BASE = window.API_CONFIG.API_BASE;
+
 const API = {
-    baseUrl: 'https://nodejs-production-e51c.up.railway.app/api',
+    baseUrl: `${API_BASE}/api`,
     
     async get(endpoint) {
         try {

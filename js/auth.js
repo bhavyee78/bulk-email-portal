@@ -4,10 +4,13 @@
  * Handles authentication state and redirects
  */
 
+// Get API_BASE from config
+const API_BASE = window.API_CONFIG.API_BASE;
+
 // Check authentication status on page load
 async function checkAuth() {
     try {
-        const response = await fetch('https://nodejs-production-e51c.up.railway.app/api/auth/status', {
+        const response = await fetch(`${API_BASE}/api/auth/status`, {
             credentials: 'include'
         });
 
@@ -15,7 +18,7 @@ async function checkAuth() {
 
         if (!data.authenticated) {
             // Not authenticated, redirect to login
-            window.location.href = '/login.html';
+            window.location.href = 'index.html';
             return false;
         }
 
@@ -30,7 +33,7 @@ async function checkAuth() {
         return true;
     } catch (error) {
         console.error('Auth check failed:', error);
-        window.location.href = '/login.html';
+        window.location.href = 'index.html';
         return false;
     }
 }
@@ -38,7 +41,7 @@ async function checkAuth() {
 // Logout function
 async function logout() {
     try {
-        const response = await fetch('https://nodejs-production-e51c.up.railway.app/api/auth/logout', {
+        const response = await fetch(`${API_BASE}/api/auth/logout`, {
             method: 'POST',
             credentials: 'include'
         });
@@ -48,7 +51,7 @@ async function logout() {
         if (data.success) {
             Toast.success('Logged out', 'Successfully logged out');
             setTimeout(() => {
-                window.location.href = '/login.html';
+                window.location.href = 'index.html';
             }, 500);
         } else {
             Toast.error('Logout failed', data.error || 'Failed to logout');
@@ -76,8 +79,8 @@ const originalFetch = window.fetch;
 window.fetch = function(...args) {
     const [url, options = {}] = args;
 
-    // Add credentials to API calls
-    if (typeof url === 'string' && url.startsWith('https://nodejs-production-e51c.up.railway.app/api/')) {
+    // Add credentials to API calls to the backend
+    if (typeof url === 'string' && url.startsWith(`${API_BASE}/api/`)) {
         options.credentials = 'include';
     }
 
@@ -88,7 +91,7 @@ window.fetch = function(...args) {
             if (data.error === 'UNAUTHORIZED') {
                 Toast.error('Session expired', 'Please login again');
                 setTimeout(() => {
-                    window.location.href = '/login.html';
+                    window.location.href = 'index.html';
                 }, 1000);
             }
         }
