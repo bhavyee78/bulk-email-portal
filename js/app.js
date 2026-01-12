@@ -29,11 +29,8 @@ const AppState = {
 // API UTILITIES
 // ===========================================
 
-// Get API_BASE from config
-const API_BASE = window.API_CONFIG.API_BASE;
-
 const API = {
-    baseUrl: `${API_BASE}/api`,
+    baseUrl: `${window.API_BASE}/api`,
     
     async get(endpoint) {
         try {

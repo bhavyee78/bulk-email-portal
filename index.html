@@ -202,8 +202,6 @@
 
     <script src="js/config.js"></script>
     <script>
-        const API_BASE = window.API_CONFIG.API_BASE;
-
         const loginForm = document.getElementById('loginForm');
         const loginButton = document.getElementById('loginButton');
         const errorMessage = document.getElementById('errorMessage');
@@ -211,7 +209,7 @@
         const passwordInput = document.getElementById('password');
 
         // Check if already authenticated
-        fetch(`${API_BASE}/api/auth/status`, {
+        fetch(`${window.API_BASE}/api/auth/status`, {
             credentials: 'include'
         })
         .then(res => res.json())
@@ -239,7 +237,7 @@
             hideError();
 
             try {
-                const response = await fetch(`${API_BASE}/api/auth/login`, {
+                const response = await fetch(`${window.API_BASE}/api/auth/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

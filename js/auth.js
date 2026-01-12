@@ -4,13 +4,10 @@
  * Handles authentication state and redirects
  */
 
-// Get API_BASE from config
-const API_BASE = window.API_CONFIG.API_BASE;
-
 // Check authentication status on page load
 async function checkAuth() {
     try {
-        const response = await fetch(`${API_BASE}/api/auth/status`, {
+        const response = await fetch(`${window.API_BASE}/api/auth/status`, {
             credentials: 'include'
         });
 
@@ -41,7 +38,7 @@ async function checkAuth() {
 // Logout function
 async function logout() {
     try {
-        const response = await fetch(`${API_BASE}/api/auth/logout`, {
+        const response = await fetch(`${window.API_BASE}/api/auth/logout`, {
             method: 'POST',
             credentials: 'include'
         });
@@ -80,7 +77,7 @@ window.fetch = function(...args) {
     const [url, options = {}] = args;
 
     // Add credentials to API calls to the backend
-    if (typeof url === 'string' && url.startsWith(`${API_BASE}/api/`)) {
+    if (typeof url === 'string' && url.startsWith(`${window.API_BASE}/api/`)) {
         options.credentials = 'include';
     }
 

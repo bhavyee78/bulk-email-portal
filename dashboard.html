@@ -361,9 +361,8 @@
     <script>
         // Auth check BEFORE loading the app - redirect to login if not authenticated
         (async function() {
-            const API_BASE = window.API_CONFIG.API_BASE;
             try {
-                const response = await fetch(`${API_BASE}/api/auth/status`, {
+                const response = await fetch(`${window.API_BASE}/api/auth/status`, {
                     credentials: 'include'
                 });
                 const data = await response.json();
@@ -393,8 +392,6 @@
     <script>
         // Setup download and export links with proper API_BASE
         document.addEventListener('DOMContentLoaded', () => {
-            const API_BASE = window.API_CONFIG.API_BASE;
-
             // Sample file downloads
             const xlsxBtn = document.getElementById('downloadSampleXlsx');
             const csvBtn = document.getElementById('downloadSampleCsv');
@@ -403,21 +400,21 @@
             if (xlsxBtn) {
                 xlsxBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    window.open(`${API_BASE}/api/contacts/sample/xlsx`, '_blank');
+                    window.open(`${window.API_BASE}/api/contacts/sample/xlsx`, '_blank');
                 });
             }
 
             if (csvBtn) {
                 csvBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    window.open(`${API_BASE}/api/contacts/sample/csv`, '_blank');
+                    window.open(`${window.API_BASE}/api/contacts/sample/csv`, '_blank');
                 });
             }
 
             if (exportBtn) {
                 exportBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    window.open(`${API_BASE}/api/emails/export`, '_blank');
+                    window.open(`${window.API_BASE}/api/emails/export`, '_blank');
                 });
             }
         });
